@@ -3,7 +3,9 @@
 
 #include <QtWidgets/QMainWindow>
 #include "ui_mainwindow.h"
-
+#include <opencv2/core/core.hpp>
+#include <opencv2/highgui/highgui.hpp>
+using namespace cv;
 class MainWindow : public QMainWindow
 {
 	Q_OBJECT
@@ -14,6 +16,7 @@ public:
 
 private:
 	void open();
+	void save();
 	QAction *openAction,*SaveAction;
 	Ui::MainWindowClass ui;
 };

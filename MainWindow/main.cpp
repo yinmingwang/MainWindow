@@ -5,12 +5,15 @@
 #include <QHBoxLayout>
 #include <QMessageBox>
 #include <iostream>
+#include <opencv2/core/core.hpp>
+#include <opencv2/highgui/highgui.hpp>
 using namespace std;
+using namespace cv;
 int main(int argc, char *argv[])
 {
 	QApplication app(argc, argv);
-	QWidget window;
-	window.setWindowTitle("Enter your age");
+	MainWindow window;
+	/*window.setWindowTitle("Enter your age");
 	window.setMinimumSize(500, 320);
 	window.setMaximumSize(500, 320);
 	QSpinBox *spinBox = new QSpinBox(&window);
@@ -26,8 +29,7 @@ int main(int argc, char *argv[])
 	QHBoxLayout *layout = new QHBoxLayout;
 	layout->addWidget(spinBox);
 	layout->addWidget(slider);
-	window.setLayout(layout);
-
+	window.setLayout(layout);*/
 	window.show();
 
 	return app.exec();
