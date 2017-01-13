@@ -20,53 +20,29 @@ QMainWindow(parent)
 	setWindowTitle(tr("Main Window"));
 	setMaximumSize(800, 520);
 	setMinimumSize(800, 520);
-	openAction = new QAction(QIcon("./Resources/images/open.png"), tr("&Open..."), this);
-	SaveAction = new QAction(QIcon("./Resources/images/save.png"), tr("&Save..."), this);
-	SaveAction->setShortcuts(QKeySequence::Save);
-	openAction->setShortcuts(QKeySequence::Open);
-	openAction->setStatusTip(tr("Open an existing file"));
-	SaveAction->setStatusTip(tr("Save an existing file"));
-	connect(openAction, &QAction::triggered, this, &MainWindow::open);
-	connect(SaveAction, &QAction::triggered, this, &MainWindow::save);
-	QMenu *file = menuBar()->addMenu(tr("&File"));
-	QMenu *save = menuBar()->addMenu(tr("&Save"));
-	file->addAction(openAction);
-	save->addAction(SaveAction);  
-	QToolBar *filetoolBar = addToolBar(tr("&File"));
-	QToolBar *savetoolBar = addToolBar(tr("&Save"));
-	filetoolBar->addAction(openAction);
-	savetoolBar->addAction(SaveAction);
-	statusBar();
+	QMessageBox msgBox;
+	msgBox.setText(tr("The document has been modified."));
+	msgBox.setInformativeText(tr("Do you want to save your changes?"));
+	msgBox.setDetailedText(tr("Differences here..."));
+	msgBox.setStandardButtons(QMessageBox::Save
+		| QMessageBox::Discard
+		| QMessageBox::Cancel);
+	msgBox.setDefaultButton(QMessageBox::Save);
+	int ret = msgBox.exec();
+	switch (ret) {
+	case QMessageBox::Save:
+		qDebug() << "Save document!";
+		break;
+	case QMessageBox::Discard:
+		qDebug() << "Discard changes!";
+		break;
+	case QMessageBox::Cancel:
+		qDebug() << "Close document!";
+		break;
+	}
+	
 }
 
 MainWindow::~MainWindow()
 {
-}
-
-void MainWindow::open()
-{
-	/*QDialog dialog(this);
-	dialog.setMaximumSize(200, 120);
-	dialog.setMinimumSize(200, 120);
-	dialog.setWindowTitle(tr("Hello, dialog!"));
-	dialog.exec();*/
-	/*Mat image = imread("1.jpg");
-	imshow("MyPicture", image);
-	waitKey(0);*/
-	QString openpath = QFileDialog::getOpenFileName(this,
-		tr("Select"),
-		"",
-		tr("Images (*.png *.bmp *.jpg *.tif *.GIF)"));
-	string  OpenPath= string((const char *)openpath.toLocal8Bit());
-	Mat image = imread(OpenPath);
-	imshow("img", image);
-	waitKey(0);
-}
-void MainWindow::save(){
-	QString savepath = QFileDialog::getSaveFileName(this,
-		tr("Save"),
-		"",
-		tr("Images (*.png *.bmp *.jpg *.tif *.GIF"));
-	string SavePath = string((const char *)savepath.toLocal8Bit());
-	//imwrite(SavePath + "2.jpg", img);
 }

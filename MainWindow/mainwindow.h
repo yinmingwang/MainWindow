@@ -15,9 +15,6 @@ public:
 	~MainWindow();
 
 private:
-	void open();
-	void save();
-	QAction *openAction,*SaveAction;
 	Ui::MainWindowClass ui;
 };
 
