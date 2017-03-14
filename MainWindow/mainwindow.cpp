@@ -12,35 +12,57 @@
 #include "mainwindow.h"
 #include <iostream>
 #include <stdio.h>
+#include <QApplication> 
+#include <QWidget> 
+#include <QSpinBox> 
+#include <QSlider> 
+#include <QHBoxLayout> 
+#include "mainwindow.h"
+#include <opencv2/core/core.hpp>
+#include <opencv2/highgui/highgui.hpp>
+#include <QVBoxLayout>
+#include <QHBoxLayout>
+#include <qDebug>
+#include <iostream>
+#include <QLabel>
+#include <QPushButton>
+#include <QDialog>
+#include <QLineEdit>
 using namespace std;
 using namespace cv;
-MainWindow::MainWindow(QWidget *parent) :
-QMainWindow(parent)
+#pragma execution_character_set("utf-8")
+MainWindow::MainWindow()
 {
 	setWindowTitle(tr("Main Window"));
 	setMaximumSize(800, 520);
 	setMinimumSize(800, 520);
-	QMessageBox msgBox;
-	msgBox.setText(tr("The document has been modified."));
-	msgBox.setInformativeText(tr("Do you want to save your changes?"));
-	msgBox.setDetailedText(tr("Differences here..."));
-	msgBox.setStandardButtons(QMessageBox::Save
-		| QMessageBox::Discard
-		| QMessageBox::Cancel);
-	msgBox.setDefaultButton(QMessageBox::Save);
-	int ret = msgBox.exec();
-	switch (ret) {
-	case QMessageBox::Save:
-		qDebug() << "Save document!";
-		break;
-	case QMessageBox::Discard:
-		qDebug() << "Discard changes!";
-		break;
-	case QMessageBox::Cancel:
-		qDebug() << "Close document!";
-		break;
-	}
-	
+	window = new QWidget;
+	window->setWindowTitle("Enter your age");
+	inputwidth = new QLineEdit;
+	inputheight = new QLineEdit;
+	Vlayout = new QVBoxLayout;
+	HWlayout = new QHBoxLayout;
+	HHlayout = new QHBoxLayout;
+	mainLayout = new QVBoxLayout;
+	width = new QLabel;
+	height = new QLabel;
+	sure = new QPushButton;
+	sure->setText(QObject::tr("确定"));
+	sure->setFixedSize(50, 30);
+	//sure->setStyleSheet("QPushButton{" "border-top-left-radius:11px;" "}");
+	width->setText(QObject::tr("宽度"));
+	width->setBuddy(inputwidth);
+	height->setText(QObject::tr("高度"));
+	height->setBuddy(inputheight);
+	HWlayout->addWidget(width);
+	HWlayout->addWidget(inputwidth);
+	HHlayout->addWidget(height);
+	HHlayout->addWidget(inputheight);
+	mainLayout->addLayout(HWlayout);
+	mainLayout->addLayout(HHlayout);
+	mainLayout->addWidget(sure);
+	window->setLayout(mainLayout);
+	window->show();
 }
 
 MainWindow::~MainWindow()
